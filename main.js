@@ -77,6 +77,7 @@ function init(){
     }
 
     function mostrar_entrenamiento(){
+
         let contenedor_entrenamientos = document.createElement("div");
         document.body.append(contenedor_entrenamientos);
 
