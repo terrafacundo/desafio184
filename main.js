@@ -36,8 +36,6 @@ function init(){
         //eventos botones
         boton_ingreso_core.addEventListener("click",formulariocore);
         boton_vista_entrenamiento.addEventListener("click",mostrar_entrenamiento);
-        boton_borrar_ultima_actividad.addEventListener("click",bo)
-        
     }
 
 
@@ -83,6 +81,8 @@ function init(){
 
         for(registro of registros_core){
             //registros impresos
+            let caja_contenedora_datos = document.createElement("div");
+            contenedor_entrenamientos.append(caja_contenedora_datos);
             let dia = document.createElement("h4");
             dia.innerHTML = `Día de entrenamiento: ${registro.dia}`;
             let volumen = document.createElement("h4");
@@ -92,27 +92,24 @@ function init(){
 
             //borrar actividad
             let borrar = document.createElement("button");
+            borrar.setAttribute("id", registros_core.indexOf(registro));
             borrar.innerText=`Borrar esta actividad`;
             borrar.addEventListener("click",borrar_actividad);
 
 
             //append
-            contenedor_entrenamientos.append(dia,volumen,carga);    
-            contenedor_entrenamientos.append(borrar);
+            caja_contenedora_datos.append(dia,volumen,carga);    
+            caja_contenedora_datos.append(borrar);
 
 
             //funcion 
 
-            function borrar_actividad(){
-                registros_core.splice(registros_core.indexOf(registro));
-                console.log(registros_core);
-                contenedor_entrenamientos.innerHTML="";
-
-
+            function borrar_actividad(e){
+                let objetivo = e.target.id;
+                registros_core.splice(objetivo,1);
+                caja_contenedora_datos.innerHTML="";
             }
         }
-
-
     }
 }
         
