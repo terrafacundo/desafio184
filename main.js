@@ -28,14 +28,15 @@ function init(){
         let boton_vista_entrenamiento = document.createElement("button");
         boton_vista_entrenamiento.innerHTML=`<h3>Mostrar entrenamientos</h3>`;
 
-        let boton_borrar_ultima_actividad = document.createElement("button");
-        boton_borrar_ultima_actividad.innerHTML=`<h3>Borrar ultimo Entrenamiento</h3>`;
+        let boton_subir_actividad = document.createElement("button");
+        boton_subir_actividad.innerHTML=`<h3>Guardar entrenamientos</h3>`;
 
-        document.body.append(boton_ingreso_tsup,boton_ingreso_tinf,boton_ingreso_core, boton_vista_entrenamiento);
+        document.body.append(boton_ingreso_tsup,boton_ingreso_tinf,boton_ingreso_core, boton_vista_entrenamiento,boton_subir_actividad);
 
         //eventos botones
         boton_ingreso_core.addEventListener("click",formulariocore);
         boton_vista_entrenamiento.addEventListener("click",mostrar_entrenamiento);
+        boton_subir_actividad.addEventListener("click",subir_actividad);
     }
 
 
@@ -51,6 +52,7 @@ function init(){
         let formulario = document.createElement("form");
         formulario.innerHTML =`
         <h2>Detalle su entrenamiento de core</h2>
+        <label for="identificacion">Nombre del entrenamiento: <input id="identificacion" type="text"></input></label>
         <label for="dia">Día de la semana: <input type="text" id="dia"></input></label>
         <label for="volumen">Volumen del entrenamiento (en hs):<input id="volumen" type="number"></input></label>
         <label for="carga">Carga neta del entrenamiento: <input id="carga" type="number"></input></label>
@@ -65,9 +67,9 @@ function init(){
             let valor_dia = document.getElementById("dia").value;
             let valor_vol = document.getElementById("volumen").value;
             let valor_carga = document.getElementById("carga").value;
-            console.log(valor_vol,valor_carga);   
+            let identificacion = document.getElementById("identificacion").value;  
 
-            registros_core.push({dia:valor_dia, volumen: valor_vol, carga: valor_carga})
+            registros_core.push({id:identificacion, dia:valor_dia, volumen: valor_vol, carga: valor_carga, })
             console.log(registros_core);
 
             formulario.innerHTML="";
@@ -79,10 +81,14 @@ function init(){
         let contenedor_entrenamientos = document.createElement("div");
         document.body.append(contenedor_entrenamientos);
 
+
+        //mostrar actividades
         for(registro of registros_core){
             //registros impresos
             let caja_contenedora_datos = document.createElement("div");
             contenedor_entrenamientos.append(caja_contenedora_datos);
+            let id = document.createElement("h4");
+            id.innerHTML = `Id del entrenamiento: ${registro.id}`;
             let dia = document.createElement("h4");
             dia.innerHTML = `Día de entrenamiento: ${registro.dia}`;
             let volumen = document.createElement("h4");
@@ -98,7 +104,7 @@ function init(){
 
 
             //append
-            caja_contenedora_datos.append(dia,volumen,carga);    
+            caja_contenedora_datos.append(id,dia,volumen,carga);    
             caja_contenedora_datos.append(borrar);
 
 
@@ -108,8 +114,31 @@ function init(){
                 let objetivo = e.target.id;
                 registros_core.splice(objetivo,1);
                 caja_contenedora_datos.innerHTML="";
+                contenedor_entrenamientos.innerHTML="";
+                boton_limpiar.remove();
             }
+
         }
+        let contenedor_boton_limpiar=document.createElement("div");
+            let boton_limpiar = document.createElement("button");
+            contenedor_boton_limpiar.append(boton_limpiar);
+            boton_limpiar.innerHTML =`<h3>Limpiar ventana</h3>`;
+            document.body.append(boton_limpiar);
+            boton_limpiar.addEventListener("click",limpiar);
+
+            function limpiar(){
+                console.log("hola");
+                contenedor_entrenamientos.innerHTML="";
+                boton_limpiar.remove();
+            }
+    }
+
+    function subir_actividad(){
+        let ventana_subida = document.createElement("div");
+        document.body.append(ventana_subida); 
+        ventana_subida.innerHTML=`<h4>¡Has subido correctamente tus entrenamientos!</h4>`;
+        let string_registros = JSON.stringify(registros_core);
+        localStorage.setItem("Entrenamientos",string_registros);
     }
 }
         
