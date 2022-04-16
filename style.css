@@ -15,3 +15,8 @@
     box-shadow: -2 -2 5px #40916c;
     font-size: 1rem;
 }
+
+#container_muestra_ingresos{
+    display: flex;
+    flex-direction: column;
+}

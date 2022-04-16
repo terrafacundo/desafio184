@@ -3,6 +3,8 @@
 //ordenar por volumen de entrenamiento(por boton)
 //ordenar por carga total(por boton)
 let container_toma_datos = document.getElementById("container_toma_datos");
+let container_muestra_ingresos = document.getElementById("container_muestra_ingresos");
+
 function init(){
     let registros_core= [];
 
@@ -45,11 +47,12 @@ function init(){
 
 
     function formulariocore()
-    {
+    {   
+
+
         let contenedor_formulario = document.createElement("div");
-        contenedor_formulario.setAttribute("class","formulario_entrada_core")
-        container_toma_datos.append(contenedor_formulario);
-        contenedor_formulario.setAttribute("class","contenedor_core");
+        container_muestra_ingresos.append(contenedor_formulario);
+        contenedor_formulario.setAttribute("class","formulario_entrada");
 
 
         let formulario = document.createElement("form");
@@ -82,7 +85,7 @@ function init(){
     function mostrar_entrenamiento(){
 
         let contenedor_entrenamientos = document.createElement("div");
-        container_toma_datos.append(contenedor_entrenamientos);
+        container_muestra_ingresos.append(contenedor_entrenamientos);
 
 
         //mostrar actividades
