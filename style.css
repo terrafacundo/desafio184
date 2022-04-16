@@ -1,4 +1,17 @@
-.hidden{
-    display:none;
-    background-color: black;
+/* Tomar datos y sus elementos*/
+*{
+    font-family: 'Akshar', sans-serif;
+}
+#container_toma_datos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: #d8f3dc;
+}
+
+.boton{
+    background-color:#74c69d;
+    border-radius: 5px;
+    box-shadow: -2 -2 5px #40916c;
+    font-size: 1rem;
 }

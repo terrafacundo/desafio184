@@ -2,7 +2,7 @@
 //ordenar por tipo entrenamiento t-inferior, t-superior, core (por boton)
 //ordenar por volumen de entrenamiento(por boton)
 //ordenar por carga total(por boton)
-
+let container_toma_datos = document.getElementById("container_toma_datos");
 function init(){
     let registros_core= [];
 
@@ -15,28 +15,31 @@ function init(){
     function menu_principal(){
 
         //botones de entrenamiento
-        let boton_ingreso_tsup =document.createElement("button");
-        boton_ingreso_tsup.innerHTML =`<h3>Tren superior</h3>`;
-
-        let boton_ingreso_tinf =document.createElement("button");
-        boton_ingreso_tinf.innerHTML =`<h3>Tren inferior</h3>`;
 
         let boton_ingreso_core =document.createElement("button");
-        boton_ingreso_core.innerHTML =`<h3>Core</h3>`;
+        boton_ingreso_core.innerHTML =`<h3>Nuevo Entrenamiento</h3>`;
+        boton_ingreso_core.setAttribute("class","boton");
 
         //botones de accion, y orden
         let boton_vista_entrenamiento = document.createElement("button");
-        boton_vista_entrenamiento.innerHTML=`<h3>Mostrar entrenamientos</h3>`;
+        boton_vista_entrenamiento.innerHTML=`<h3>Mostrar entrenamientos en cola</h3>`;
+        boton_vista_entrenamiento.setAttribute("class","boton");
 
         let boton_subir_actividad = document.createElement("button");
-        boton_subir_actividad.innerHTML=`<h3>Guardar entrenamientos</h3>`;
+        boton_subir_actividad.innerHTML=`<h3>Guardar entrenamientos en la nube</h3>`;
+        boton_subir_actividad.setAttribute("class","boton");
 
-        document.body.append(boton_ingreso_tsup,boton_ingreso_tinf,boton_ingreso_core, boton_vista_entrenamiento,boton_subir_actividad);
+        let boton_estadisticas = document.createElement("button");
+        boton_estadisticas.innerHTML = `<h3>Estadísticas</h3>`
+        boton_estadisticas.setAttribute("class","boton");
+
+        container_toma_datos.append(boton_ingreso_core, boton_vista_entrenamiento,boton_subir_actividad, boton_estadisticas);
 
         //eventos botones
         boton_ingreso_core.addEventListener("click",formulariocore);
         boton_vista_entrenamiento.addEventListener("click",mostrar_entrenamiento);
         boton_subir_actividad.addEventListener("click",subir_actividad);
+        boton_estadisticas.addEventListener("click",resumen_del_usuario);
     }
 
 
@@ -45,7 +48,7 @@ function init(){
     {
         let contenedor_formulario = document.createElement("div");
         contenedor_formulario.setAttribute("class","formulario_entrada_core")
-        document.body.append(contenedor_formulario);
+        container_toma_datos.append(contenedor_formulario);
         contenedor_formulario.setAttribute("class","contenedor_core");
 
 
@@ -65,8 +68,8 @@ function init(){
         function envio(e){
             e.preventDefault();
             let valor_dia = document.getElementById("dia").value;
-            let valor_vol = document.getElementById("volumen").value;
-            let valor_carga = document.getElementById("carga").value;
+            let valor_vol = Number(document.getElementById("volumen").value);
+            let valor_carga = Number(document.getElementById("carga").value);
             let identificacion = document.getElementById("identificacion").value;  
 
             registros_core.push({id:identificacion, dia:valor_dia, volumen: valor_vol, carga: valor_carga, })
@@ -79,7 +82,7 @@ function init(){
     function mostrar_entrenamiento(){
 
         let contenedor_entrenamientos = document.createElement("div");
-        document.body.append(contenedor_entrenamientos);
+        container_toma_datos.append(contenedor_entrenamientos);
 
 
         //mostrar actividades
@@ -123,7 +126,7 @@ function init(){
             let boton_limpiar = document.createElement("button");
             contenedor_boton_limpiar.append(boton_limpiar);
             boton_limpiar.innerHTML =`<h3>Limpiar ventana</h3>`;
-            document.body.append(boton_limpiar);
+            container_toma_datos.append(boton_limpiar);
             boton_limpiar.addEventListener("click",limpiar);
 
             function limpiar(){
@@ -135,10 +138,10 @@ function init(){
 
     function subir_actividad(){
         let ventana_subida = document.createElement("div");
-        document.body.append(ventana_subida); 
+        container_toma_datos.append(ventana_subida); 
         ventana_subida.innerHTML=`<h4>¡Has subido correctamente tus entrenamientos!</h4>`;
         let string_registros = JSON.stringify(registros_core);
-        localStorage.setItem("Entrenamientos",string_registros);
+        localStorage.setItem("entrenamientos",string_registros);
     }
 }
         
